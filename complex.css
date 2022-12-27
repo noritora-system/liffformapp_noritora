@@ -1,0 +1,33 @@
+.now-open, .now-close {
+    font-weight: bold;
+    font-size: 180%;
+    text-align: center;
+}
+.now-close {
+    margin: 20%;
+}
+.now-open {
+    margin: 10% 0%;
+}
+.place-status {
+    text-align: center;
+    font-size: 120%;
+}
+span.status-0 {
+    font-weight: bold;
+}
+span.status-0, span.status-1 {
+    color: blue;
+}
+span.status-2, span.status-3 {
+    color: red;
+}
+span.status-3 {
+    font-weight: bold;
+}
+.center {
+    font-size: 120%;
+    margin-top: 10%;
+    text-align-last: center;
+}
+
