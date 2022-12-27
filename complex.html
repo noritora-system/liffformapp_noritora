@@ -63,7 +63,7 @@
 <script>
 var lineId = ''
 var lineName = ''
-const endpoint = "https://script.google.com/macros/s/AKfycbwbVA5fqctxU5ZaMP_HDKzCMjBSuf5EO_aEB0oP3mfx-v2R_A_LOeGJcLpoUvgNlvXo/exec";
+const endpoint = "https://script.google.com/macros/s/AKfycbzmLAMq3-jjmgu6xrGF-UwAoqsy6DQdnl8Ro3sVZSEGykJLcfLPK_JIGShpVqgk8rkw/exec";
 var settei="0";
 $(document).ready(function () {
   if(settei=="0"){
@@ -104,7 +104,7 @@ $(document).ready(function () {
     });
   }else{
     //doument.body.innerHTML = 'LINEで開いてください'
-    //ajaxConnGet("aaaa")//テスト用
+    ajaxConnGet("Uaa202930c4dac4f74ed2693e4f603cfb")//テスト用
   }
   
       
@@ -122,6 +122,7 @@ function ajaxConnGet(lineId){
       },
       success: out => {
         document.getElementById('liff-message').innerHTML = '';
+        //if(out.open=="0"){
         if(out.open=="0" || out.status=="-"){
           //営業時間外
           document.body.style="background-color:lightgray;"
@@ -129,23 +130,18 @@ function ajaxConnGet(lineId){
         }else{
           //混雑状況・設定
           document.body.style="background-color:lightyellow;"
-          var status;
-          var kanri;
-          switch(out.status){
-            case '0':
-              status = '<div class="place-status">混雑状況：<span class="status-0">かなり空いています</span></div>'
-              break;
-            case '1':
-              status = '<div class="place-status">混雑状況：<span class="status-1">比較的空いています</span></div>'
-              break;
-            case '2':
-              status = '<div class="place-status">混雑状況：<span class="status-2">少々混雑しています</span></div>'
-              break;
-            case '3':
-              status = '<div class="place-status">混雑状況：<span class="status-3">大変混雑しています</span></div>'
-              break;
-            default:
-              status =  '<div class="place-status">混雑状況：<span class="non">スタッフによる入力なし</span></div>'
+          var status = "";
+          var kanri = "";
+          if(out.status=="0"){
+            status = '<div class="place-status">混雑状況：<span class="status-0">かなり空いています</span></div>'
+          }else if(out.status=="1"){
+            status = '<div class="place-status">混雑状況：<span class="status-1">比較的空いています</span></div>'
+          }else if(out.status=="2"){
+            status = '<div class="place-status">混雑状況：<span class="status-2">少々混雑しています</span></div>'
+          }else if(out.status=="3"){
+            status = '<div class="place-status">混雑状況：<span class="status-3">大変混雑しています</span></div>'
+          }else{
+            status =  '<div class="place-status">混雑状況：<span class="non">スタッフによる入力なし</span></div>'
           }
           if(out.view=="1"){//管理者         
             kanri = '<div class="center"><select id="complex-status" name="complex-status"><option value="0">かなり空いています</option><option value="1">比較的空いています</option><option value="2">少々混雑しています</option><option value="3">大変混雑しています</option></select></div><div class="center"><input type="button"  class="btn btn-primary" value="変更する" onclick="submit_push()"></div>';
