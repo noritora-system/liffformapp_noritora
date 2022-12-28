@@ -28,6 +28,8 @@ span.status-3 {
 .center {
     font-size: 120%;
     margin-top: 10%;
-    text-align-last: center;
+    margin-left: 25%;
 }
-
+.center.centerbtn {
+    margin-left: 38%;
+}
