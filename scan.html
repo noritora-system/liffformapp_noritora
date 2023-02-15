@@ -5,7 +5,7 @@
     <title>QRcode reader13</title>
 </head>
 <body>
-<p id="liff-message" onchange="link()"></p>
+<p id="liff-message"></p>
 <p id="liff-message2"></p>
 <span id="area"></span>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -14,6 +14,7 @@
 <script>
 var lineId = ''
 var lineName = ''
+var reLink = ''
 function link(){
     location.replace=$("#liff-message")[0].text;
 }
@@ -41,9 +42,9 @@ $(document).ready(function () {
         //カメラ起動
         liff.scanCodeV2()
         .then((result) => {
-          pElement.innerHTML = result.value;
-          location.replace=$("#liff-message")[0].text;
-            setTimeout(link(result.value), 0.5);
+          reLink = result.value;
+          pElement.innerHTML = reLink;
+
           liff.closeWindow();
         })
         .catch((err) => {
@@ -55,8 +56,9 @@ $(document).ready(function () {
     });
   }
 })
-function link(str){
-location.replace=$("#liff-message")[0].text;
+
+function link(){
+    location.href=reLink;
 }
 
 </script>
