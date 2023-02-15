@@ -2,7 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRcode reader3</title>
+    <title>QRcode reader7</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
@@ -22,11 +22,7 @@
 <script>
 var lineId = ''
 var lineName = ''
-const endpoint = "https://script.google.com/macros/s/AKfycbwr4olhwMIG6AL-Cv4eoAAcMtWzfEmQ6ITtNvHSB68DHReiV3EVfRLBkPR1WUpCZhSM/exec";
-var settei="0";
 $(document).ready(function () {
-  if(settei=="0"){
-  settei=1;   
   const liffId = "1657763925-5yob2JPD";
   var lineiId = "";            
   const divPage = document.getElementById('liff-page');
@@ -49,7 +45,7 @@ $(document).ready(function () {
         liff.scanCodeV2()
         .then((result) => {
           //alert(result);
-          //window.location.href(result);
+          window.location.href(result);
         })
         .catch((err) => {
             //alert("error "+result);
@@ -58,15 +54,6 @@ $(document).ready(function () {
     .catch((err) => {
       console.log('LIFF Initialization failed ', err);
     });
-    
-
-  }else{
-    //doument.body.innerHTML = 'LINEで開いてください'
-    //ajaxConnGet("aaaa")//テスト用
-  }
-  
-      
-  
   }
 })
 </script>
