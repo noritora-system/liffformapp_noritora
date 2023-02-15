@@ -35,11 +35,12 @@ $(document).ready(function () {
       //withLoginOnExternalBrowser: true, // Enable automatic login process
     })
     .then(()=>{
-          pElement.innerHTML=''
+        pElement.innerHTML=''
         //カメラ起動
         liff.scanCodeV2()
         .then((result) => {
           location = result.value;
+          liff.closeWindow();
         })
         .catch((err) => {
             liff.closeWindow();
@@ -50,10 +51,6 @@ $(document).ready(function () {
     });
   }
 })
-
-function link(){
-    document.location=reLink;
-}
 
 </script>
 
