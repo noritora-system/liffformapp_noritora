@@ -1,48 +1,86 @@
-<template>
-  <div class="qrReader">
-    <qrcode-reader :paused="paused" @init="onInit" @decode="onDecode"></qrcode-reader>
-  </div>
-</template>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-qrcode-reader@2.0.3/dist/vue-qrcode-reader.css"> 
-<script src="https://cdn.jsdelivr.net/npm/vue-qrcode-reader@2.0.3/dist/vue-qrcode-reader.browser.js"></script>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRcode reader</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="./modal.css">
+</head>
+<body>
+<p id="liff-message"></p>
+<p id="liff-message2"></p>
+<span id="area"></span>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script>
-  import { QrcodeReader } from 'vue-qrcode-reader'
-  export default {
-    components: { QrcodeReader },
-    name: "qrReader",
-    data () {
-      return {
-        paused: false
-      }
-    },
-    methods: {
-      async onInit (promise) {
-        // show loading indicator
-        try {
-          await promise
-          // successfully initialized
-        } catch (error) {
-          if (error.name === 'NotAllowedError') {
-            // user denied camera access permisson
-          } else if (error.name === 'NotFoundError') {
-            // no suitable camera device installed
-          } else if (error.name === 'NotSupportedError') {
-            // page is not served over HTTPS (or localhost)
-          } else if (error.name === 'NotReadableError') {
-            // maybe camera is already in use
-          } else if (error.name === 'OverconstrainedError') {
-            // passed constraints don't match any camera. Did you requested the front camera although there is none?
-          } else {
-            // browser is probably lacking features (WebRTC, Canvas)
-          }
-        } finally {
-          // hide loading indicator
-        }
-      },
-      onDecode(content){
-        this.paused = true
-        alert(content)
-      }
-    }
+var lineId = ''
+var lineName = ''
+const endpoint = "https://script.google.com/macros/s/AKfycbwr4olhwMIG6AL-Cv4eoAAcMtWzfEmQ6ITtNvHSB68DHReiV3EVfRLBkPR1WUpCZhSM/exec";
+var settei="0";
+$(document).ready(function () {
+  if(settei=="0"){
+  settei=1;   
+  const liffId = "1657763925-K9gBxQLz";
+  var lineiId = "";            
+  const divPage = document.getElementById('liff-page');
+  
+  //p要素の取得
+  const pElement = document.getElementById('liff-message');
+            
+  //LIFFで立ち上げているかどうかの判定
+  if(liff.isInClient()){
+    pElement.innerHTML='読み込み中...'
+    
+
+    //LIFF初期化
+    liff.init({
+      liffId: liffId
+    })
+    .then(()=>{
+      //プロフィール情報の取得
+      liff.getProfile()
+      .then(profile=>{
+        lineId = profile.userId;
+        lineName =  profile.displayName;
+      })
+      .then(()=>{
+        //document.body.innerHTML = 'aaaa id' + lineId    
+        ajaxConnGet(lineId);
+      })
+      .catch((err) => {
+         alert('error');   
+      })
+    })
+    .catch((err) => {
+      console.log('LIFF Initialization failed ', err);
+    });
+    
+    
+    liff.scanCodeV2()
+    .then((result) => {
+        // e.g. result = { value: 'Hello LIFF app!' }
+      window.location.href(result);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+  }else{
+    //doument.body.innerHTML = 'LINEで開いてください'
+    //ajaxConnGet("aaaa")//テスト用
   }
+  
+      
+  
+  }
+})
 </script>
+
+</body>
+</html>
