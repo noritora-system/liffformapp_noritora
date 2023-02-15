@@ -45,7 +45,7 @@ $(document).ready(function () {
         liff.scanCodeV2()
         .then((result) => {
           //alert(result);
-          window.location.href(result);
+          window.location.href(result.value);
         })
         .catch((err) => {
             //alert("error "+result);
