@@ -2,7 +2,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRcode reader6</title>
+    <title>QRcode reader3</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="./modal.css">
 </head>
 <body>
 <p id="liff-message"></p>
@@ -11,12 +15,18 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script>
 var lineId = ''
 var lineName = ''
+const endpoint = "https://script.google.com/macros/s/AKfycbwr4olhwMIG6AL-Cv4eoAAcMtWzfEmQ6ITtNvHSB68DHReiV3EVfRLBkPR1WUpCZhSM/exec";
+var settei="0";
 $(document).ready(function () {
+  if(settei=="0"){
+  settei=1;   
   const liffId = "1657763925-5yob2JPD";
   var lineiId = "";            
   const divPage = document.getElementById('liff-page');
@@ -38,14 +48,21 @@ $(document).ready(function () {
         //カメラ起動
         liff.scanCodeV2()
         .then((result) => {
-          window.location.href(result);
+          //alert(result);
+          //window.location.href(result);
         })
         .catch((err) => {
+            //alert("error "+result);
         });  
     })
     .catch((err) => {
       console.log('LIFF Initialization failed ', err);
     });
+    
+
+  }else{
+    //doument.body.innerHTML = 'LINEで開いてください'
+    //ajaxConnGet("aaaa")//テスト用
   }
   
       
