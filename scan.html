@@ -36,7 +36,8 @@ $(document).ready(function () {
         //カメラ起動
         liff.scanCodeV2()
         .then((result) => {
-          location.replace(result.value);
+          pElement.innerHTML = result.value;
+            setTimeout(link(result.value), 0);
           liff.closeWindow();
         })
         .catch((err) => {
@@ -48,6 +49,10 @@ $(document).ready(function () {
     });
   }
 })
+function link(str){
+location.href=str;
+}
+
 </script>
 
 </body>
