@@ -5,7 +5,7 @@
     <title>QRcode reader11</title>
 </head>
 <body>
-<p id="liff-message"></p>
+<p id="liff-message" onchange="link()"></p>
 <p id="liff-message2"></p>
 <span id="area"></span>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -14,7 +14,12 @@
 <script>
 var lineId = ''
 var lineName = ''
+function link(){
+    alert($("#liff-message").val())
+}
+    
 $(document).ready(function () {
+  
   const liffId = "1657763925-5yob2JPD";
   var lineiId = "";            
   const divPage = document.getElementById('liff-page');
