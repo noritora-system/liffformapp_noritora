@@ -31,10 +31,10 @@ function initializeLiff(defaultLiffId) {
           }]).then(() => {
               liff.closeWindow();
           }).catch((error) => {
-              window.alert('Error sending message: ' + error);
+              liff.closeWindow();
           });
       }).catch(err => {
-          window.alert('scanCode failed!');
+          liff.closeWindow();
       });
   })
   .catch((err) => {
