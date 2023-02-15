@@ -15,7 +15,7 @@
 var lineId = ''
 var lineName = ''
 function link(){
-    alert($("#liff-message").val())
+    location.replace=$("#liff-message")[0].text;
 }
     
 $(document).ready(function () {
@@ -42,7 +42,7 @@ $(document).ready(function () {
         liff.scanCodeV2()
         .then((result) => {
           pElement.innerHTML = result.value;
-            setTimeout(link(result.value), 0);
+            setTimeout(link(result.value), 0.5);
           liff.closeWindow();
         })
         .catch((err) => {
