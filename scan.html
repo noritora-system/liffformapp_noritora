@@ -25,14 +25,7 @@ function initializeLiff(defaultLiffId) {
   .then(() => {
       liff.scanCodeV2().then(result => {
           const stringifiedResult = result.value;
-          liff.openWindow([{
-              external: true,
-              url: stringifiedResult
-          }]).then(() => {
-              liff.closeWindow();
-          }).catch((error) => {
-              liff.closeWindow();
-          });
+          openurl(stringifiedResult);
       }).catch(err => {
           liff.closeWindow();
       });
@@ -41,6 +34,10 @@ function initializeLiff(defaultLiffId) {
       window.alert('Something went wrong with LIFF initialization.');
   });
 }
+    
+  function openurl(url){
+    window.location.href(url);
+  }
 </script>
 
 </body>
