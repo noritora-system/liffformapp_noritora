@@ -27,7 +27,7 @@ var settei="0";
 $(document).ready(function () {
   if(settei=="0"){
   settei=1;   
-  const liffId = "1657763925-K9gBxQLz";
+  const liffId = "1657763925-5yob2JPD";
   var lineiId = "";            
   const divPage = document.getElementById('liff-page');
   
@@ -44,34 +44,23 @@ $(document).ready(function () {
       liffId: liffId
     })
     .then(()=>{
-      //プロフィール情報の取得
-      liff.getProfile()
-      .then(profile=>{
-        lineId = profile.userId;
-        lineName =  profile.displayName;
-      })
-      .then(()=>{
-        //document.body.innerHTML = 'aaaa id' + lineId    
-        ajaxConnGet(lineId);
-      })
-      .catch((err) => {
-         alert('error');   
-      })
+        pElement.innerHTML=''
+        //カメラ起動
+        liff.scanCodeV2()
+        .then((result) => {
+            // e.g. result = { value: 'Hello LIFF app!' }
+          window.alert(result);
+          window.location.href(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     })
     .catch((err) => {
       console.log('LIFF Initialization failed ', err);
     });
     
-    pElement.innerHTML=''
-    
-    liff.scanCodeV2()
-    .then((result) => {
-        // e.g. result = { value: 'Hello LIFF app!' }
-      window.location.href(result);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+
   }else{
     //doument.body.innerHTML = 'LINEで開いてください'
     //ajaxConnGet("aaaa")//テスト用
