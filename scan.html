@@ -2,7 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRcode reader16</title>
+    <title>QRcode reader</title>
 </head>
 <body>
 <p id="liff-message"></p>
@@ -15,9 +15,6 @@
 var lineId = ''
 var lineName = ''
 var reLink = ''
-function link(){
-    location.replace=$("#liff-message")[0].text;
-}
     
 $(document).ready(function () {
   
@@ -42,11 +39,7 @@ $(document).ready(function () {
         //カメラ起動
         liff.scanCodeV2()
         .then((result) => {
-          reLink = result.value;
-          pElement.innerHTML = reLink;
-          location = reLink;
-
-          //liff.closeWindow();
+          location = result.value;
         })
         .catch((err) => {
             liff.closeWindow();
