@@ -38,14 +38,17 @@ $(document).ready(function () {
   if(liff.isInClient()){
     pElement.innerHTML='読み込み中...'
     
+    window.alert("liff初期化");
 
     //LIFF初期化
     liff.init({
-      liffId: liffId
+      liffId: liffId,
+      withLoginOnExternalBrowser: true, // Enable automatic login process
     })
     .then(()=>{
         pElement.innerHTML=''
         //カメラ起動
+        window.alert("カメラ起動");
         liff.scanCodeV2()
         .then((result) => {
             // e.g. result = { value: 'Hello LIFF app!' }
