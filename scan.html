@@ -14,7 +14,7 @@
 <script>
 var lineId = ''
 var lineName = ''
-var reLink = 'http://google.com'
+var reLink = ''
     
 $(document).ready(function () {
   
@@ -45,11 +45,13 @@ $(document).ready(function () {
           }
         })
         .catch((err) => {
-            liff.closeWindow();
+            //liff.closeWindow();
+            window.close();
         });  
     })
     .catch((err) => {
-         liff.closeWindow();
+         //liff.closeWindow();
+        window.close();
     });
   }
 })
