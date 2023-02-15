@@ -2,7 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRcode reader14</title>
+    <title>QRcode reader15</title>
 </head>
 <body>
 <p id="liff-message"></p>
@@ -16,7 +16,9 @@ window.onload = function() {
   const defaultLiffId = "1657763925-5yob2JPD";
   initializeLiff(defaultLiffId);
 };
-
+  function openurl(url){
+    window.alert(url);
+  }
 function initializeLiff(defaultLiffId) {
   liff
   .init({
@@ -35,9 +37,7 @@ function initializeLiff(defaultLiffId) {
   });
 }
     
-  function openurl(url){
-    window.alert(url);
-  }
+
 </script>
 
 </body>
