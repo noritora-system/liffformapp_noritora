@@ -12,43 +12,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
 <script>
-var lineId = ''
-var lineName = ''
-$(document).ready(function () {
-  const liffId = "1657763925-5yob2JPD";
-  var lineiId = "";            
-  const divPage = document.getElementById('liff-page');
-  
-  //p要素の取得
-  const pElement = document.getElementById('liff-message');
-            
-  //LIFFで立ち上げているかどうかの判定
-  if(liff.isInClient()){
-    pElement.innerHTML='読み込み中...'
+window.onload = function() {
+  const defaultLiffId = "1657763925-5yob2JPD";
+  initializeLiff(defaultLiffId);
+};
 
-    //LIFF初期化
-    liff.init({
-      liffId: liffId
-      //withLoginOnExternalBrowser: true, // Enable automatic login process
-    })
-    .then(()=>{
-          pElement.innerHTML=''
-        //カメラ起動
-        liff.scanCodeV2()
-        .then((result) => {
-          //alert(result);
-          window.location.href(result.value);
-          liff.closeWindow();
-        })
-        .catch((err) => {
-            //alert("error "+result);
-        });  
-    })
-    .catch((err) => {
-      console.log('LIFF Initialization failed ', err);
-    });
-  }
-})
+function initializeLiff(defaultLiffId) {
+  liff
+  .init({
+      liffId: defaultLiffId
+  })
+  .then(() => {
+      liff.scanCodeV2().then(result => {
+          const stringifiedResult = result.value;
+          liff.sendMessages([{
+              'type': 'text',
+              'text': stringifiedResult
+          }]).then(() => {
+              liff.closeWindow();
+          }).catch((error) => {
+              window.alert('Error sending message: ' + error);
+          });
+      }).catch(err => {
+          window.alert('scanCode failed!');
+      });
+  })
+  .catch((err) => {
+      window.alert('Something went wrong with LIFF initialization.');
+  });
+}
 </script>
 
 </body>
