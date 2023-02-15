@@ -48,11 +48,9 @@ $(document).ready(function () {
     .then(()=>{
         pElement.innerHTML=''
         //カメラ起動
-        window.alert("カメラ起動");
         liff.scanCodeV2()
         .then((result) => {
-            // e.g. result = { value: 'Hello LIFF app!' }
-          window.alert(result);
+          alert(result);
           window.location.href(result);
         })
         .catch((err) => {
