@@ -63,7 +63,7 @@
 <script>
 var lineId = ''
 var lineName = ''
-const endpoint = "https://script.google.com/macros/s/AKfycbzsx8Cz6_0chxkbE9vRUB0tKQuqheQrtZ3o9UBX5NPV89rYR8_3-TJw5lfolvtLenRX/exec";
+const endpoint = "https://script.google.com/macros/s/AKfycbw6UhWos8YDZ7TTG7Z9kyK4Ipu21iOAVBax1IWydIMdA6lZcAUr0wuLK0GEl6s8fpOh/exec";
 var settei="0";
 $(document).ready(function () {
   if(settei=="0"){
@@ -132,14 +132,14 @@ function ajaxConnGet(lineId){
           document.body.style="background-color:lightyellow;"
           var status = "";
           var kanri = "";
-          if(out.status=="0"){
-            status = '<div class="place-status">混雑状況：<span class="status-0">かなり空いています</span></div>'
-          }else if(out.status=="1"){
-            status = '<div class="place-status">混雑状況：<span class="status-1">比較的空いています</span></div>'
+          if(out.status=="1"){
+            status = '<div class="place-status">混雑状況：<span class="status-1">かなり空いています</span></div>'
           }else if(out.status=="2"){
-            status = '<div class="place-status">混雑状況：<span class="status-2">少々混雑しています</span></div>'
+            status = '<div class="place-status">混雑状況：<span class="status-2">比較的空いています</span></div>'
           }else if(out.status=="3"){
-            status = '<div class="place-status">混雑状況：<span class="status-3">大変混雑しています</span></div>'
+            status = '<div class="place-status">混雑状況：<span class="status-3">少々混雑しています</span></div>'
+          }else if(out.status=="4"){
+            status = '<div class="place-status">混雑状況：<span class="status-4">大変混雑しています</span></div>'
           }else{
             status =  '<div class="place-status">混雑状況：<span class="non">スタッフによる入力なし</span></div>'
           }
