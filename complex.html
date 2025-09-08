@@ -16,17 +16,17 @@
 <div class="now-close">現在営業時間外</div>
 <div class="now-open">現在営業中</div>
 <div class="place-status">混雑状況：<span class="non">スタッフによる入力なし</span></div>
-<div class="place-status">混雑状況：<span class="status-0">かなり空いています</span></div>
-<div class="place-status">混雑状況：<span class="status-1">比較的空いています</span></div>
-<div class="place-status">混雑状況：<span class="status-2">少々混雑しています</span></div>
-<div class="place-status">混雑状況：<span class="status-3">大変混雑しています</span></div>
+<div class="place-status">混雑状況：<span class="status-1">かなり空いています</span></div>
+<div class="place-status">混雑状況：<span class="status-2">比較的空いています</span></div>
+<div class="place-status">混雑状況：<span class="status-3">少々混雑しています</span></div>
+<div class="place-status">混雑状況：<span class="status-4">大変混雑しています</span></div>
 
 <div class="center">
 <select name="complex-status">
-<option value="0">かなり空いています</option>
-<option value="1">比較的空いています</option>
-<option value="2">少々混雑しています</option>
-<option value="3">大変混雑しています</option>
+<option value="1">かなり空いています</option>
+<option value="2">比較的空いています</option>
+<option value="3">少々混雑しています</option>
+<option value="4">大変混雑しています</option>
 </select>
 </div>
 <div class="center"><input type="button"  class="btn btn-primary" value="変更する"></div>
@@ -144,7 +144,7 @@ function ajaxConnGet(lineId){
             status =  '<div class="place-status">混雑状況：<span class="non">スタッフによる入力なし</span></div>'
           }
           if(out.view=="1"){//管理者         
-            kanri = '<div class="center" style="font-size: 120%;margin-top: 10%;margin-left: 25%;"><select id="complex-status" name="complex-status"><option value="0">かなり空いています</option><option value="1">比較的空いています</option><option value="2">少々混雑しています</option><option value="3">大変混雑しています</option></select></div><div class="center centerbtn" style="font-size: 120%;margin-top: 10%;margin-left: 38%;"><input type="button"  class="btn btn-primary" value="変更する" onclick="submit_push()"></div>';
+            kanri = '<div class="center" style="font-size: 120%;margin-top: 10%;margin-left: 25%;"><select id="complex-status" name="complex-status"><option value="1">かなり空いています</option><option value="2">比較的空いています</option><option value="3">少々混雑しています</option><option value="4">大変混雑しています</option></select></div><div class="center centerbtn" style="font-size: 120%;margin-top: 10%;margin-left: 38%;"><input type="button"  class="btn btn-primary" value="変更する" onclick="submit_push()"></div>';
           }    
           document.getElementById("area").innerHTML = '<div class="now-open">現在営業中</div>' + status + kanri
         }
@@ -202,3 +202,4 @@ function submit_push() {
 
 </body>
 </html>
+
