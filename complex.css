@@ -22,8 +22,11 @@ span.status-0, span.status-1 {
 span.status-2, span.status-3 {
     color: red;
 }
-span.status-3 {
+span.status-3, span.status-4 {
     font-weight: bold;
+}
+span.status-4 {
+    color: darkred;
 }
 .center {
     font-size: 120%;
@@ -32,4 +35,5 @@ span.status-3 {
 }
 .center.centerbtn {
     margin-left: 38%;
+
 }
