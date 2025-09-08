@@ -1,0 +1,204 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>混雑状況</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="./complex.css">
+</head>
+<body>
+<p id="liff-message"></p>
+<span id="area"></span>
+
+<!--
+<div class="now-close">現在営業時間外</div>
+<div class="now-open">現在営業中</div>
+<div class="place-status">混雑状況：<span class="non">スタッフによる入力なし</span></div>
+<div class="place-status">混雑状況：<span class="status-0">かなり空いています</span></div>
+<div class="place-status">混雑状況：<span class="status-1">比較的空いています</span></div>
+<div class="place-status">混雑状況：<span class="status-2">少々混雑しています</span></div>
+<div class="place-status">混雑状況：<span class="status-3">大変混雑しています</span></div>
+
+<div class="center">
+<select name="complex-status">
+<option value="0">かなり空いています</option>
+<option value="1">比較的空いています</option>
+<option value="2">少々混雑しています</option>
+<option value="3">大変混雑しています</option>
+</select>
+</div>
+<div class="center"><input type="button"  class="btn btn-primary" value="変更する"></div>
+-->
+<!--
+    <div style="border-style: double;margin: 10px;padding: 10px;">
+    <div style="background-color: #99FF99;">
+    <h6><div style="text-align: center;font-family:Comic Sans MS;font-weight:bold;">トランポリンハウスNORI×NORI</div></h6>
+    <div class="" style="text-align: center;">会員番号：■</div>
+    </div>
+    </div>
+--> 
+<!--
+<form class="w-75 mx-auto">  
+    
+    <p class="mt-3">氏名(漢字)</p>
+    <div>
+        <input class="form-control w-100 mt-1" name="name" required>
+    </div>
+    <p class="mt-3">会員番号</p>
+    <div>
+        <input class="form-control w-100 mt-1" name="no" placeholder="会員証の番号を入力" required>
+    </div>
+    <input type="submit" class="mt-4 btn btn-primary" value="登録">
+</form>
+-->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>
+var lineId = ''
+var lineName = ''
+const endpoint = "https://script.google.com/macros/s/AKfycbw6UhWos8YDZ7TTG7Z9kyK4Ipu21iOAVBax1IWydIMdA6lZcAUr0wuLK0GEl6s8fpOh/exec";
+var settei="0";
+$(document).ready(function () {
+  if(settei=="0"){
+  settei=1;   
+  const liffId = "1657763925-nvGVr7JY";
+  var lineiId = "";            
+  const divPage = document.getElementById('liff-page');
+  
+  //p要素の取得
+  const pElement = document.getElementById('liff-message');
+            
+  //LIFFで立ち上げているかどうかの判定
+  if(liff.isInClient()){
+    pElement.innerHTML='読み込み中...'
+    
+
+    //LIFF初期化
+    liff.init({
+      liffId: liffId
+    })
+    .then(()=>{
+      //プロフィール情報の取得
+      liff.getProfile()
+      .then(profile=>{
+        lineId = profile.userId;
+        lineName =  profile.displayName;
+      })
+      .then(()=>{
+        //document.body.innerHTML = 'aaaa id' + lineId    
+        ajaxConnGet(lineId);
+      })
+      .catch((err) => {
+         alert('error');   
+      })
+    })
+    .catch((err) => {
+      console.log('LIFF Initialization failed ', err);
+    });
+  }else{
+    //doument.body.innerHTML = 'LINEで開いてください'
+    ajaxConnGet("Uaa202930c4dac4f74ed2693e4f603cfb")//テスト用
+  }
+  
+      
+  
+  }
+})
+
+function ajaxConnGet(lineId){
+  $.ajax({
+      type: 'GET',
+      url: endpoint,
+      dataType: 'jsonp',
+      data: {
+        text: lineId
+      },
+      success: out => {
+        document.getElementById('liff-message').innerHTML = '';
+        //if(out.open=="0"){
+        if(out.open=="0" || out.status=="-"){
+          //営業時間外
+          document.body.style="background-color:lightgray;"
+          document.getElementById("area").innerHTML = '<div class="now-close">現在営業時間外</div>'
+        }else{
+          //混雑状況・設定
+          document.body.style="background-color:lightyellow;"
+          var status = "";
+          var kanri = "";
+          if(out.status=="1"){
+            status = '<div class="place-status">混雑状況：<span class="status-1">かなり空いています</span></div>'
+          }else if(out.status=="2"){
+            status = '<div class="place-status">混雑状況：<span class="status-2">比較的空いています</span></div>'
+          }else if(out.status=="3"){
+            status = '<div class="place-status">混雑状況：<span class="status-3">少々混雑しています</span></div>'
+          }else if(out.status=="4"){
+            status = '<div class="place-status">混雑状況：<span class="status-4">大変混雑しています</span></div>'
+          }else{
+            status =  '<div class="place-status">混雑状況：<span class="non">スタッフによる入力なし</span></div>'
+          }
+          if(out.view=="1"){//管理者         
+            kanri = '<div class="center" style="font-size: 120%;margin-top: 10%;margin-left: 25%;"><select id="complex-status" name="complex-status"><option value="0">かなり空いています</option><option value="1">比較的空いています</option><option value="2">少々混雑しています</option><option value="3">大変混雑しています</option></select></div><div class="center centerbtn" style="font-size: 120%;margin-top: 10%;margin-left: 38%;"><input type="button"  class="btn btn-primary" value="変更する" onclick="submit_push()"></div>';
+          }    
+          document.getElementById("area").innerHTML = '<div class="now-open">現在営業中</div>' + status + kanri
+        }
+      },
+      error: function(){
+        document.body.innerHTML = ''
+        alert("通信エラー");
+      }
+  });   
+}
+
+function connPost(status){
+  var SendDATA = {
+     "status" : status
+  };
+  var postparam = {
+    "method"     : "POST",
+    "mode"       : "no-cors",
+    "Content-Type" : "application/x-www-form-urlencoded",
+    "body" : JSON.stringify(SendDATA)
+  };
+  fetch(endpoint, postparam);
+}
+
+function initializeLiff(liffId) {
+    liff.init({
+        liffId: liffId
+    }).then(() => {
+        initializeApp();
+    }).catch((err) => {
+        console.log('LIFF Initialization failed ', err);
+    });
+}
+
+function sendText(text) {
+    liff.sendMessages([{
+        'type': 'text',
+        'text': text
+    }]).then(function () {
+        liff.closeWindow();
+    }).catch(function (error) {
+        window.alert('Failed to send message ' + error);
+    });
+}
+
+function submit_push() {
+  if(window.confirm('混雑状況を変更します。よろしいでしょうか？')){
+    connPost($("#complex-status").val());
+    document.body.innerHTML = '<div id="liff-message" style="text-align: center; margin-top:15%">変更完了しました。<br>このタブを閉じてください。</div>';            
+  }
+  return false;
+}
+
+    </script>
+
+</body>
+</html>
